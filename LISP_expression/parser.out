@@ -1,0 +1,502 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> list SEMI
+Rule 2     start -> num SEMI
+Rule 3     num -> NUMBER
+Rule 4     num -> VAR
+Rule 5     num -> LPAREN OP num num RPAREN
+Rule 6     num -> LPAREN CAR list RPAREN
+Rule 7     num -> LPAREN LET LPAREN vars RPAREN num RPAREN
+Rule 8     list -> LPAREN seq RPAREN
+Rule 9     list -> LPAREN CDR list RPAREN
+Rule 10    list -> LPAREN CONS num list RPAREN
+Rule 11    seq -> <empty>
+Rule 12    seq -> num seq
+Rule 13    vars -> LPAREN VAR num RPAREN
+Rule 14    vars -> vars LPAREN VAR num RPAREN
+
+Terminals, with rules where they appear
+
+CAR                  : 6
+CDR                  : 9
+CONS                 : 10
+LET                  : 7
+LPAREN               : 5 6 7 7 8 9 10 13 14
+NUMBER               : 3
+OP                   : 5
+RPAREN               : 5 6 7 7 8 9 10 13 14
+SEMI                 : 1 2
+VAR                  : 4 13 14
+error                : 
+
+Nonterminals, with rules where they appear
+
+list                 : 1 6 9 10
+num                  : 2 5 5 7 10 12 13 14
+seq                  : 8 12
+start                : 0
+vars                 : 7 14
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . list SEMI
+    (2) start -> . num SEMI
+    (8) list -> . LPAREN seq RPAREN
+    (9) list -> . LPAREN CDR list RPAREN
+    (10) list -> . LPAREN CONS num list RPAREN
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    LPAREN          shift and go to state 4
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+
+    start                          shift and go to state 1
+    list                           shift and go to state 2
+    num                            shift and go to state 3
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> list . SEMI
+
+    SEMI            shift and go to state 7
+
+
+state 3
+
+    (2) start -> num . SEMI
+
+    SEMI            shift and go to state 8
+
+
+state 4
+
+    (8) list -> LPAREN . seq RPAREN
+    (9) list -> LPAREN . CDR list RPAREN
+    (10) list -> LPAREN . CONS num list RPAREN
+    (5) num -> LPAREN . OP num num RPAREN
+    (6) num -> LPAREN . CAR list RPAREN
+    (7) num -> LPAREN . LET LPAREN vars RPAREN num RPAREN
+    (11) seq -> .
+    (12) seq -> . num seq
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    CDR             shift and go to state 11
+    CONS            shift and go to state 12
+    OP              shift and go to state 14
+    CAR             shift and go to state 15
+    LET             shift and go to state 16
+    RPAREN          reduce using rule 11 (seq -> .)
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+    LPAREN          shift and go to state 9
+
+    seq                            shift and go to state 10
+    num                            shift and go to state 13
+
+state 5
+
+    (3) num -> NUMBER .
+
+    SEMI            reduce using rule 3 (num -> NUMBER .)
+    NUMBER          reduce using rule 3 (num -> NUMBER .)
+    VAR             reduce using rule 3 (num -> NUMBER .)
+    LPAREN          reduce using rule 3 (num -> NUMBER .)
+    RPAREN          reduce using rule 3 (num -> NUMBER .)
+
+
+state 6
+
+    (4) num -> VAR .
+
+    SEMI            reduce using rule 4 (num -> VAR .)
+    NUMBER          reduce using rule 4 (num -> VAR .)
+    VAR             reduce using rule 4 (num -> VAR .)
+    LPAREN          reduce using rule 4 (num -> VAR .)
+    RPAREN          reduce using rule 4 (num -> VAR .)
+
+
+state 7
+
+    (1) start -> list SEMI .
+
+    $end            reduce using rule 1 (start -> list SEMI .)
+
+
+state 8
+
+    (2) start -> num SEMI .
+
+    $end            reduce using rule 2 (start -> num SEMI .)
+
+
+state 9
+
+    (5) num -> LPAREN . OP num num RPAREN
+    (6) num -> LPAREN . CAR list RPAREN
+    (7) num -> LPAREN . LET LPAREN vars RPAREN num RPAREN
+
+    OP              shift and go to state 14
+    CAR             shift and go to state 15
+    LET             shift and go to state 16
+
+
+state 10
+
+    (8) list -> LPAREN seq . RPAREN
+
+    RPAREN          shift and go to state 17
+
+
+state 11
+
+    (9) list -> LPAREN CDR . list RPAREN
+    (8) list -> . LPAREN seq RPAREN
+    (9) list -> . LPAREN CDR list RPAREN
+    (10) list -> . LPAREN CONS num list RPAREN
+
+    LPAREN          shift and go to state 18
+
+    list                           shift and go to state 19
+
+state 12
+
+    (10) list -> LPAREN CONS . num list RPAREN
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+    LPAREN          shift and go to state 9
+
+    num                            shift and go to state 20
+
+state 13
+
+    (12) seq -> num . seq
+    (11) seq -> .
+    (12) seq -> . num seq
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    RPAREN          reduce using rule 11 (seq -> .)
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+    LPAREN          shift and go to state 9
+
+    num                            shift and go to state 13
+    seq                            shift and go to state 21
+
+state 14
+
+    (5) num -> LPAREN OP . num num RPAREN
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+    LPAREN          shift and go to state 9
+
+    num                            shift and go to state 22
+
+state 15
+
+    (6) num -> LPAREN CAR . list RPAREN
+    (8) list -> . LPAREN seq RPAREN
+    (9) list -> . LPAREN CDR list RPAREN
+    (10) list -> . LPAREN CONS num list RPAREN
+
+    LPAREN          shift and go to state 18
+
+    list                           shift and go to state 23
+
+state 16
+
+    (7) num -> LPAREN LET . LPAREN vars RPAREN num RPAREN
+
+    LPAREN          shift and go to state 24
+
+
+state 17
+
+    (8) list -> LPAREN seq RPAREN .
+
+    SEMI            reduce using rule 8 (list -> LPAREN seq RPAREN .)
+    RPAREN          reduce using rule 8 (list -> LPAREN seq RPAREN .)
+
+
+state 18
+
+    (8) list -> LPAREN . seq RPAREN
+    (9) list -> LPAREN . CDR list RPAREN
+    (10) list -> LPAREN . CONS num list RPAREN
+    (11) seq -> .
+    (12) seq -> . num seq
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    CDR             shift and go to state 11
+    CONS            shift and go to state 12
+    RPAREN          reduce using rule 11 (seq -> .)
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+    LPAREN          shift and go to state 9
+
+    seq                            shift and go to state 10
+    num                            shift and go to state 13
+
+state 19
+
+    (9) list -> LPAREN CDR list . RPAREN
+
+    RPAREN          shift and go to state 25
+
+
+state 20
+
+    (10) list -> LPAREN CONS num . list RPAREN
+    (8) list -> . LPAREN seq RPAREN
+    (9) list -> . LPAREN CDR list RPAREN
+    (10) list -> . LPAREN CONS num list RPAREN
+
+    LPAREN          shift and go to state 18
+
+    list                           shift and go to state 26
+
+state 21
+
+    (12) seq -> num seq .
+
+    RPAREN          reduce using rule 12 (seq -> num seq .)
+
+
+state 22
+
+    (5) num -> LPAREN OP num . num RPAREN
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+    LPAREN          shift and go to state 9
+
+    num                            shift and go to state 27
+
+state 23
+
+    (6) num -> LPAREN CAR list . RPAREN
+
+    RPAREN          shift and go to state 28
+
+
+state 24
+
+    (7) num -> LPAREN LET LPAREN . vars RPAREN num RPAREN
+    (13) vars -> . LPAREN VAR num RPAREN
+    (14) vars -> . vars LPAREN VAR num RPAREN
+
+    LPAREN          shift and go to state 29
+
+    vars                           shift and go to state 30
+
+state 25
+
+    (9) list -> LPAREN CDR list RPAREN .
+
+    SEMI            reduce using rule 9 (list -> LPAREN CDR list RPAREN .)
+    RPAREN          reduce using rule 9 (list -> LPAREN CDR list RPAREN .)
+
+
+state 26
+
+    (10) list -> LPAREN CONS num list . RPAREN
+
+    RPAREN          shift and go to state 31
+
+
+state 27
+
+    (5) num -> LPAREN OP num num . RPAREN
+
+    RPAREN          shift and go to state 32
+
+
+state 28
+
+    (6) num -> LPAREN CAR list RPAREN .
+
+    SEMI            reduce using rule 6 (num -> LPAREN CAR list RPAREN .)
+    NUMBER          reduce using rule 6 (num -> LPAREN CAR list RPAREN .)
+    VAR             reduce using rule 6 (num -> LPAREN CAR list RPAREN .)
+    LPAREN          reduce using rule 6 (num -> LPAREN CAR list RPAREN .)
+    RPAREN          reduce using rule 6 (num -> LPAREN CAR list RPAREN .)
+
+
+state 29
+
+    (13) vars -> LPAREN . VAR num RPAREN
+
+    VAR             shift and go to state 33
+
+
+state 30
+
+    (7) num -> LPAREN LET LPAREN vars . RPAREN num RPAREN
+    (14) vars -> vars . LPAREN VAR num RPAREN
+
+    RPAREN          shift and go to state 35
+    LPAREN          shift and go to state 34
+
+
+state 31
+
+    (10) list -> LPAREN CONS num list RPAREN .
+
+    SEMI            reduce using rule 10 (list -> LPAREN CONS num list RPAREN .)
+    RPAREN          reduce using rule 10 (list -> LPAREN CONS num list RPAREN .)
+
+
+state 32
+
+    (5) num -> LPAREN OP num num RPAREN .
+
+    SEMI            reduce using rule 5 (num -> LPAREN OP num num RPAREN .)
+    NUMBER          reduce using rule 5 (num -> LPAREN OP num num RPAREN .)
+    VAR             reduce using rule 5 (num -> LPAREN OP num num RPAREN .)
+    LPAREN          reduce using rule 5 (num -> LPAREN OP num num RPAREN .)
+    RPAREN          reduce using rule 5 (num -> LPAREN OP num num RPAREN .)
+
+
+state 33
+
+    (13) vars -> LPAREN VAR . num RPAREN
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+    LPAREN          shift and go to state 9
+
+    num                            shift and go to state 36
+
+state 34
+
+    (14) vars -> vars LPAREN . VAR num RPAREN
+
+    VAR             shift and go to state 37
+
+
+state 35
+
+    (7) num -> LPAREN LET LPAREN vars RPAREN . num RPAREN
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+    LPAREN          shift and go to state 9
+
+    num                            shift and go to state 38
+
+state 36
+
+    (13) vars -> LPAREN VAR num . RPAREN
+
+    RPAREN          shift and go to state 39
+
+
+state 37
+
+    (14) vars -> vars LPAREN VAR . num RPAREN
+    (3) num -> . NUMBER
+    (4) num -> . VAR
+    (5) num -> . LPAREN OP num num RPAREN
+    (6) num -> . LPAREN CAR list RPAREN
+    (7) num -> . LPAREN LET LPAREN vars RPAREN num RPAREN
+
+    NUMBER          shift and go to state 5
+    VAR             shift and go to state 6
+    LPAREN          shift and go to state 9
+
+    num                            shift and go to state 40
+
+state 38
+
+    (7) num -> LPAREN LET LPAREN vars RPAREN num . RPAREN
+
+    RPAREN          shift and go to state 41
+
+
+state 39
+
+    (13) vars -> LPAREN VAR num RPAREN .
+
+    RPAREN          reduce using rule 13 (vars -> LPAREN VAR num RPAREN .)
+    LPAREN          reduce using rule 13 (vars -> LPAREN VAR num RPAREN .)
+
+
+state 40
+
+    (14) vars -> vars LPAREN VAR num . RPAREN
+
+    RPAREN          shift and go to state 42
+
+
+state 41
+
+    (7) num -> LPAREN LET LPAREN vars RPAREN num RPAREN .
+
+    SEMI            reduce using rule 7 (num -> LPAREN LET LPAREN vars RPAREN num RPAREN .)
+    NUMBER          reduce using rule 7 (num -> LPAREN LET LPAREN vars RPAREN num RPAREN .)
+    VAR             reduce using rule 7 (num -> LPAREN LET LPAREN vars RPAREN num RPAREN .)
+    LPAREN          reduce using rule 7 (num -> LPAREN LET LPAREN vars RPAREN num RPAREN .)
+    RPAREN          reduce using rule 7 (num -> LPAREN LET LPAREN vars RPAREN num RPAREN .)
+
+
+state 42
+
+    (14) vars -> vars LPAREN VAR num RPAREN .
+
+    RPAREN          reduce using rule 14 (vars -> vars LPAREN VAR num RPAREN .)
+    LPAREN          reduce using rule 14 (vars -> vars LPAREN VAR num RPAREN .)
+
